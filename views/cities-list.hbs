@@ -1,0 +1,11 @@
+{{#> template title=title }}
+    <div style="margin-top: 30px;">
+        {{#if items.length}}
+        <ul class="list-group">
+            {{#each items}}
+            <li class="list-group-item col-2"><a href="/weather/{{this.name}}">{{this.name}}</a></li>
+            {{/each}}
+        </ul>
+        {{/if}}
+    </div>
+{{/template}}
