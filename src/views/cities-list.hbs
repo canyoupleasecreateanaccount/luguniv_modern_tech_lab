@@ -1,8 +1,8 @@
 {{#> template title=title }}
     <div style="margin-top: 30px;">
-        {{#if items.length}}
+        {{#if cities.length}}
         <ul class="list-group">
-            {{#each items}}
+            {{#each cities}}
             <li class="list-group-item col-2"><a href="/weather/{{this.name}}">{{this.name}}</a></li>
             {{/each}}
         </ul>
