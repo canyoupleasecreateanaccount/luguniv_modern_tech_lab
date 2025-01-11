@@ -9,9 +9,9 @@ services:
       - ./package.json:/usr/app/package.json
     command: sh -c "npm install -g nodemon && npm run dev:api"
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
-      - PORT=3000
+      - PORT=3002
       - HOST=http://realworld-docker.com
       - MONGO_URL=mongodb://api_db:27017/api
       - NODE_ENV=development
@@ -38,3 +38,14 @@ services:
       - auth_db
   auth_db:
     image: mongo:latest
+  frontend:
+    build: 
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    container_name: weather_app_frontend
+    command: npm run start
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
