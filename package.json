@@ -1,11 +1,17 @@
 {
   "scripts": {
-    "start": "node app.js"
+    "start:api": "node api/app.js",
+    "dev:api": "nodemon api/app.js",
+    "start:auth": "node auth/app.js",
+    "dev:auth": "nodemon auth/app.js"
   },
   "dependencies": {
     "axios": "^1.7.9",
     "express": "^4.21.2",
     "hbs": "^4.2.0",
     "mongoose": "^8.9.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

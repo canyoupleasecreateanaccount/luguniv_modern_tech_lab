@@ -4,13 +4,17 @@ services:
     build: 
       context: .
       dockerfile: ./api/Dockerfile
-    command: npm run start:api
+    volumes:
+      - ./api:/usr/app/api
+      - ./package.json:/usr/app/package.json
+    command: sh -c "npm install -g nodemon && npm run dev:api"
     ports:
       - "3000:3000"
     environment:
       - PORT=3000
       - HOST=http://realworld-docker.com
       - MONGO_URL=mongodb://api_db:27017/api
+      - NODE_ENV=development
     depends_on:
       - api_db
   api_db:
@@ -19,13 +23,17 @@ services:
     build: 
       context: .
       dockerfile: ./auth/Dockerfile
-    command: npm run start:auth
+    volumes:
+      - ./auth:/usr/app/auth
+      - ./package.json:/usr/app/package.json
+    command: sh -c "npm install -g nodemon && npm run dev:auth"
     ports:
       - "3001:3001"
     environment:
       - PORT=3001
       - HOST=http://realworld-docker.com
       - MONGO_URL=mongodb://auth_db:27017/auth
+      - NODE_ENV=development
     depends_on:
       - auth_db
   auth_db:
