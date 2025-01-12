@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: ./api/Dockerfile
     command: npm run start:api
-    ports:
-      - "3002:3002"
+    expose:
+      - 3002
     environment:
       - PORT=3002
       - HOST=http://realworld-docker.com
@@ -20,8 +20,8 @@ services:
       context: .
       dockerfile: ./auth/Dockerfile
     command: npm run start:auth
-    ports:
-      - "3001:3001"
+    expose:
+      - 3001
     environment:
       - PORT=3001
       - HOST=http://realworld-docker.com
@@ -38,6 +38,18 @@ services:
     command: serve -s build -l 3000
     environment:
       - NODE_ENV=prod
-    ports:
-      - "3000:3000"
+    expose:
+      - 3000
     restart: unless-stopped
+  nginx:
+    build: 
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - api_db
+      - auth
+      - auth_db
+      - frontend
